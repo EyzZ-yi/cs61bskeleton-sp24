@@ -2,6 +2,7 @@ package main;
 
 import static utils.Utils.*;
 
+
 import ngrams.NGramMap;
 import org.slf4j.LoggerFactory;
 
@@ -14,11 +15,13 @@ public class Main {
     /* Do not delete or modify the code above! */
 
     public static void main(String[] args) {
+        System.out.println("Current working directory: " + System.getProperty("user.dir"));
         NgordnetServer hns = new NgordnetServer();
         // The following code might be useful to you.
 
         //NGramMap ngm = new NGramMap(SHORT_WORDS_FILE, TOTAL_COUNTS_FILE);
-        NGramMap ngm = new NGramMap("./data/ngrams/top_14377_words.csv", "./data/ngrams/total_counts.csv");
+        NGramMap ngm = new NGramMap(SHORT_WORDS_FILE, TOTAL_COUNTS_FILE);
+
 
 
         hns.startUp();

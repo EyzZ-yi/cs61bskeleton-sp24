@@ -34,7 +34,7 @@ public class HistoryTextHandler extends NgordnetQueryHandler {
                     k++;
             }
             response+="}";
-            if(i<words.size()) response+="\n";
+            if(i<words.size()-1) response+="\n";
         }
         return response;
     }

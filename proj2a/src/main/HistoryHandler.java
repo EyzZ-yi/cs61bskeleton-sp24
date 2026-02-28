@@ -25,18 +25,9 @@ public class HistoryHandler extends NgordnetQueryHandler {
         ArrayList<TimeSeries>word = new ArrayList<>();
         ArrayList<String> name=new ArrayList<>();
         for(int i=0;i<n;i++){
-            TimeSeries c=new TimeSeries();
-            TimeSeries cmp=p.weightHistory(words.get(1),startYear,endYear);
+            TimeSeries cmp=p.weightHistory(words.get(i),startYear,endYear);
             name.add(words.get(i));
             word.add(cmp);
-
-//            List<Double> wordsOfweight=p.weightHistory(words.get(i),startYear,endYear).data();
-//            int a=0;
-//            for(int j=startYear;j<endYear;j++){
-//                c.put(j,wordsOfweight.get(a));
-//                a++;
-//            }
-//            word.add(c);
         }
         XYChart chart = Plotter.generateTimeSeriesChart(name,word);
         String encodedImage = Plotter.encodeChartAsString(chart);
