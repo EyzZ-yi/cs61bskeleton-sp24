@@ -1,23 +1,15 @@
-# This is an example configuration file
-# To learn more, see the full config.yaml reference: https://docs.continue.dev/reference
+# 阿里云百炼 API 接入配置
+ai_config:
+  provider: openai
+  # 重点：必须使用百炼的兼容地址
+  api_base: "https://dashscope.aliyuncs.com/compatible-mode/v1"
+  api_key: "sk-sp-96e0cba5763c42638d69d346e11b85f5"
 
-name: Example Config
-version: 1.0.0
-schema: v1
+  # 模型列表
+  models:
+    - name: "qwen-plus"       # 7.9元套餐包含的模型
+      alias: "claude-style"   # 你可以给它起个别名
+    - name: "qwen-2.5-coder-32b" # 强烈建议 CS 学生尝试的编程专项模型
 
-# Define which models can be used
-# https://docs.continue.dev/customization/models
-models:
-  - name: my gpt-5
-    provider: openai
-    model: gpt-5
-    apiKey: YOUR_OPENAI_API_KEY_HERE
-  - uses: ollama/qwen2.5-coder-7b
-  - uses: anthropic/claude-4-sonnet
-    with:
-      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-
-# MCP Servers that Continue can access
-# https://docs.continue.dev/customization/mcp-tools
-mcpServers:
-  - uses: anthropic/memory-mcp
+  # 模拟 Claude 的系统提示词 (可选)
+  system_prompt: "You are a helpful AI assistant coding in IDEA, similar to Claude 3.5."

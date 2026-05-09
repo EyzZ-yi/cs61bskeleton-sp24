@@ -5,13 +5,13 @@ import tileengine.TETile;
 import java.awt.*;
 
 /**
- *  Provides the logic for Tetris.
+ *  提供俄罗斯方块的逻辑。
  *
  *  @author Erik Nelson, Omar Yu, and Noah Adhikari
  */
 
 public enum Tetromino {
-    // colors from tetris wiki
+    // 颜色来自俄罗斯方块维基百科
     I(new Color(0x31e7ef), new boolean[][]{
             {false, false, false, false},
             {true, true, true, true},
@@ -57,16 +57,16 @@ public enum Tetromino {
 
     Tetromino(Color color, boolean[][] s) {
         this.tile = new TETile('█', color, Color.BLACK, "", 0);
-        // need to convert from ij to xy coords because tile renderer coordinates are mismatched
+        // 需要从ij坐标系转换为xy坐标系，因为图块渲染器的坐标系不匹配
         this.shape = ijToXY(s);
         this.width = shape[0].length;
         this.height = shape.length;
         this.pos = new Point(3, 20);
     }
 
-    /** Converts from ij coordinates to xy coordinates. This is specifically for converting
-     * the 2D boolean array representation of a piece to the tile rendering coordinates, since
-     * orientation is not aligned.
+    /**
+     * 将ij坐标系转换为xy坐标系。这专门用于将方块的二维布尔数组表示
+     * 转换为图块渲染坐标，因为方向不一致。
      */
     private static boolean[][] ijToXY(boolean[][] ijArr) {
         int numRows = ijArr.length;
@@ -82,8 +82,8 @@ public enum Tetromino {
 
 
     /**
-     * Draws the piece at the given coordinates of the given board. (x,y) = 0,0 is bottom-left.
-     * Does not do bounds-checking.
+     * 在给定面板的指定坐标处绘制方块。(x,y) = 0,0 是左下角。
+     * 不进行边界检查。
      */
     public static void draw(Tetromino t, TETile[][] board, int bx, int by) {
         for (int tx = 0; tx < t.width; tx++) {
@@ -96,7 +96,7 @@ public enum Tetromino {
     }
 
     /**
-     * Sets the point of a Tetromino to (3, 20), specifically for spawning.
+     * 将俄罗斯方块的坐标点设置为 (3, 20)，专门用于生成方块。
      */
     public void reset() {
         this.pos = new Point(3, 20);

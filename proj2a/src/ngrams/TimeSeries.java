@@ -1,5 +1,7 @@
 package ngrams;
 
+import edu.princeton.cs.algs4.Heap;
+
 import java.util.*;
 
 /**

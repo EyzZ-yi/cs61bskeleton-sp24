@@ -112,7 +112,7 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
                     p=p.hounode;
                     j++;
                 }
-                return p.item;
+                 return p.item;
             }
         }
         return null;

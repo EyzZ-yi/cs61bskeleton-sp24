@@ -60,12 +60,6 @@ public class NGramMap {
                 words.put(word, new HashMap<>());
             }
             words.get(word).put(year,number);
-            //System.out.println("DEBUG: 已加载单词总数: " + words.size());
-//            if (words.containsKey("cat")) {
-//                System.out.println("DEBUG: 找到了 'cat' !");
-//            } else {
-//                System.out.println("DEBUG: 警告！Map 里没有 'cat' !");
-//            }
         }
         // TODO: Fill in this constructor. See the "NGramMap Tips" section of the spec for help.
     }

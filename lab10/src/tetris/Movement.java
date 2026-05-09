@@ -4,7 +4,7 @@ import tileengine.TETile;
 import tileengine.Tileset;
 
 /**
- *  Provides the logic for movement of Tetris pieces.
+ *  提供俄罗斯方块方块移动的逻辑。
  *
  *  @author Erik Nelson, Omar Yu, and Jasmine Lin
  */
@@ -24,23 +24,23 @@ public class Movement {
     }
 
     /**
-     * Rotate the current Tetromino 90 degrees to the right (clockwise).
+     * 将当前的俄罗斯方块向右（顺时针）旋转90度。
      */
     public void rotateRight() {
         rotate(Rotation.RIGHT);
     }
 
     /**
-     * Rotate the current Tetromino 90 degrees to the left (counter-clockwise).
+     * 将当前的俄罗斯方块向左（逆时针）旋转90度。
      */
     public void rotateLeft() {
         rotate(Rotation.LEFT);
     }
 
     /**
-     * Attempts to move the current Tetromino by a shift of deltaX and deltaY.
-     * If the Tetromino cannot move and will collide with a boundary or existing piece,
-     * it is placed at its current position and nullified so a new Tetromino can spawn.
+     * 尝试将当前的俄罗斯方块移动一个 deltaX 和 deltaY 的偏移量。
+     * 如果俄罗斯方块无法移动并将与边界或现有方块碰撞，
+     * 它将被放置在当前位置并被置空，以便可以生成一个新的俄罗斯方块。
      * @param deltaX
      * @param deltaY
      */
@@ -63,11 +63,11 @@ public class Movement {
     }
 
     /**
-     * Checks whether moving the current Tetromino by a shift of deltaX and deltaY
-     * is valid, i.e. within bounds and does not collide with other pieces.
+     * 检查将当前的俄罗斯方块移动一个 deltaX 和 deltaY 的偏移量是否有效，
+     * 即在边界内且不与其他方块碰撞。
      * @param deltaX
      * @param deltaY
-     * @return a boolean representing if the move is possible or not
+     * @return 一个布尔值，表示该移动是否可能
      */
     public boolean canMove(int deltaX, int deltaY) {
         Tetromino t = tetris.getCurrentTetromino();
@@ -76,7 +76,7 @@ public class Movement {
             for (int ty = 0; ty < t.height; ty++){
                 if (t.shape[tx][ty]) {
 
-                    // Out of bounds check
+                    // 越界检查
                     if (t.pos.x + tx + deltaX >= WIDTH ||
                             t.pos.x + tx + deltaX < 0 ||
                             t.pos.y + ty + deltaY >= GAME_HEIGHT ||
@@ -84,7 +84,7 @@ public class Movement {
                         return false;
                     }
 
-                    // Board check
+                    // 面板检查
                     TETile[][] board = tetris.getBoard();
                     if (board[t.pos.x + tx + deltaX][t.pos.y + ty + deltaY] != Tileset.NOTHING) {
                         return false;
@@ -97,8 +97,8 @@ public class Movement {
     }
 
     /**
-     * Moves the current Tetromino down one tile, if not able to move down,
-     * set the block in place and allow for a new Tetromino to be spawned.
+     * 将当前的俄罗斯方块向下移动一个图块，如果无法向下移动，
+     * 则将方块固定在原位，并允许生成一个新的俄罗斯方块。
      */
     public void dropDown() {
         Tetromino t = tetris.getCurrentTetromino();
@@ -116,11 +116,10 @@ public class Movement {
     }
 
     /**
-     * Checks whether rotating the current Tetromino is valid,
-     * i.e. it will remain within bounds and does not rotate/collide into
-     * other pieces.
+     * 检查旋转当前的俄罗斯方块是否有效，
+     * 即它将保持在边界内并且不会旋转/碰撞到其他方块。
      * @param newShape
-     * @return a boolean representing if the rotation is possible or not
+     * @return 一个布尔值，表示该旋转是否可能
      */
     public boolean canRotate(boolean[][] newShape) {
         Tetromino t = tetris.getCurrentTetromino();
@@ -141,15 +140,15 @@ public class Movement {
     }
 
     /**
-     * Rotation enum used to discern between left and right rotations.
+     * 用于区分左右旋转的旋转枚举。
      */
     public enum Rotation {
         RIGHT, LEFT
     }
 
     /**
-     * Attempts to rotate the current Tetromino by the given direction r (left or right).
-     * If the Tetromino cannot rotate, it will remain in its current orientation.
+     * 尝试按给定方向 r（左或右）旋转当前的俄罗斯方块。
+     * 如果俄罗斯方块无法旋转，它将保持其当前方向。
      * @param r
      */
     public void rotate(Rotation r) {

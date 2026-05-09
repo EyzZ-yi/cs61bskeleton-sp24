@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
- *  A Tetris-accurate Tetromino randomizer.
- *  This prevents the same Tetromino shape from appearing multiple times in succession.
+ *  一个精确的俄罗斯方块随机生成器。
+ *  这可以防止同一个俄罗斯方块形状连续多次出现。
  *
  *  @author Erik Nelson
  */
@@ -14,10 +14,10 @@ public class BagRandomizer {
 
   private Random random;
 
-  // A list of current values in the "bag".
+  // “袋子”中当前值的列表。
   ArrayList<Integer> values;
 
-  // The total capacity of the bag.
+  // 袋子的总容量。
   int capacity;
 
   public BagRandomizer(Random r, int n) {
@@ -28,7 +28,7 @@ public class BagRandomizer {
   }
 
   /**
-   * Resets the values of the bag to contain integers from 0 (inclusive) to capacity (exclusive).
+   * 将袋子的值重置为包含从 0（含）到 capacity（不含）的整数。
    */
   private void refillValues() {
     ArrayList<Integer> newValues = new ArrayList<>();
@@ -39,8 +39,8 @@ public class BagRandomizer {
   }
 
   /**
-   * Grabs and removes a random item from the bag. If the bag is empty, refill it.
-   * @return the removed integer
+   * 从袋子中抓取并移除一个随机物品。如果袋子是空的，则重新装满。
+   * @return 被移除的整数
    */
   public int getValue() {
     if (values.isEmpty()) {

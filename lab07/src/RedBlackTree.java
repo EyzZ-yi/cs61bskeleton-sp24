@@ -16,6 +16,9 @@ public class RedBlackTree<T extends Comparable<T>> {
          * @param isBlack
          * @param item
          */
+        /**
+         * 创建一个红黑树节点，其值为 ITEM，颜色取决于 ISBLACK 的值。
+         */
         RBTreeNode(boolean isBlack, T item) {
             this(isBlack, item, null, null);
         }
@@ -27,6 +30,9 @@ public class RedBlackTree<T extends Comparable<T>> {
          * @param item
          * @param left
          * @param right
+         */
+        /**
+         * 创建一个红黑树节点，包含元素 ITEM，颜色取决于 ISBLACK 的值，左子节点为 LEFT，右子节点为 RIGHT。
          */
         RBTreeNode(boolean isBlack, T item, RBTreeNode<T> left,
                    RBTreeNode<T> right) {
@@ -49,7 +55,14 @@ public class RedBlackTree<T extends Comparable<T>> {
      * and right children
      * @param node
      */
+    /**
+     * 翻转节点及其子节点的颜色。假设该节点同时拥有左子节点和右子节点。
+     */
     void flipColors(RBTreeNode<T> node) {
+
+            node.right.isBlack=true;
+            node.left.isBlack=true;
+            node.isBlack=false;
         // TODO: YOUR CODE HERE
     }
 
@@ -60,9 +73,22 @@ public class RedBlackTree<T extends Comparable<T>> {
      * @param node
      * @return
      */
+    /**
+     * 将给定节点向右旋转。返回此子树的新根节点。
+     * 在此实现中，请务必交换新根节点和旧根节点的颜色！
+     */
     RBTreeNode<T> rotateRight(RBTreeNode<T> node) {
         // TODO: YOUR CODE HERE
-        return null;
+        RBTreeNode<T> p=node;//
+        if(node.left==null) return node;
+            boolean m=node.isBlack;
+            node.isBlack=node.left.isBlack;
+            node.left.isBlack=m;
+        RBTreeNode<T> j=node.left.right;//左字节点的右节点
+        node=node.left;
+        node.right=p;
+        node.right.left=j;
+        return node;
     }
 
     /**
@@ -72,9 +98,23 @@ public class RedBlackTree<T extends Comparable<T>> {
      * @param node
      * @return
      */
+    /**
+     * 将给定节点向左旋转。返回此子树的新根节点。
+     * 在此实现中，请务必交换新根节点和旧根节点的颜色！
+     */
     RBTreeNode<T> rotateLeft(RBTreeNode<T> node) {
         // TODO: YOUR CODE HERE
-        return null;
+
+        RBTreeNode<T> p=node;//
+        if(node.right==null) return node;
+            boolean m=node.isBlack;
+            node.isBlack=node.right.isBlack;
+            node.right.isBlack=m;
+        RBTreeNode<T> j=node.right.left;
+        node=node.right;
+        node.left=p;
+        node.left.right=j;
+        return node;
     }
 
     /**
@@ -83,6 +123,9 @@ public class RedBlackTree<T extends Comparable<T>> {
      * @param node
      * @return
      */
+    /**
+     * 辅助方法，用于判断给定节点是否为红色。空节点（子节点或叶子节点）默认被视为黑色。
+     */
     private boolean isRed(RBTreeNode<T> node) {
         return node != null && !node.isBlack;
     }
@@ -90,6 +133,9 @@ public class RedBlackTree<T extends Comparable<T>> {
     /**
      * Inserts the item into the Red Black Tree. Colors the root of the tree black.
      * @param item
+     */
+    /**
+     * 将元素插入红黑树。并将树的根节点染成黑色。
      */
     public void insert(T item) {
         root = insert(root, item);
@@ -104,6 +150,10 @@ public class RedBlackTree<T extends Comparable<T>> {
      * @param item
      * @return
      */
+    /**
+     * 将给定节点插入到此红黑树中。已提供注释以帮助分解问题。对于每种情况，请考虑执行这些操作所需的场景。
+     * 此外，请务必查看此类中的其他方法！
+     */
     private RBTreeNode<T> insert(RBTreeNode<T> node, T item) {
         // TODO: Insert (return) new red leaf node.
 
@@ -115,7 +165,24 @@ public class RedBlackTree<T extends Comparable<T>> {
 
         // TODO: Color flip
 
-        return null; //fix this return statement
+        // TODO: 插入（返回）新的红色叶子节点。
+        if(node==null) {
+            return new RBTreeNode<>(false,item,null,null);}
+// TODO: 处理普通二叉搜索树的插入操作。
+        int cmp=item.compareTo(node.item);
+        if(cmp<0){
+            node.left=insert(node.left,item);}
+        else if(cmp>0){
+            node.right=insert(node.right,item);}
+// TODO: 左旋操作
+        if(isRed(node.right) && !isRed(node.left))
+        node=rotateLeft(node);
+// TODO: 右旋操作
+        if(isRed(node.left) && isRed(node.left.left))
+        node=rotateRight(node);
+// TODO: 颜色翻转
+        if(isRed(node.left)&&isRed(node.right))
+        flipColors(node);
+        return node; //fix this return statement修复此返回语句
     }
-
 }
