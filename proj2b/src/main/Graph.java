@@ -1,5 +1,7 @@
 package main;
 
+import net.sf.saxon.trans.SymbolicName;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -9,6 +11,9 @@ import java.util.List;
 public class Graph {
     List<int[]> TxtList=new ArrayList<>();
     HashMap<Integer,Set<Integer>> graph=new HashMap();
+    public Graph(String hyponymsFile){
+        ReadTxtExample(hyponymsFile);
+    }
     public HashMap<Integer, Set<Integer>>CreatGraph(){//初始化图
         for(int[] list: TxtList ) {
                 int length = list.length;
@@ -16,17 +21,21 @@ public class Graph {
                 for (int i = 0; i < length; i++) {
                     graph.computeIfAbsent(list[0], k -> new HashSet<>()).add(list[i]);
                 }
-
-                graph.put(list[0], set);
-
         }
         return graph;
     }
-    public Set<Integer> Find(int id){
-        return graph.get(id);
+    HashSet<Integer> resOfId=new HashSet<>();
+    public void Find(int id){
+        resOfId.add(id);
+        if(!graph.containsKey(id)){
+            return ;
+        }
+        for(Integer ids :graph.get(id)){
+            Find(ids);
+        }
     }
-    public void ReadTxtExample(){
-        String filePath = "hyponyms.txt"; // 替换为你的文件路径
+    private void ReadTxtExample(String hyponymsFile){
+        String filePath = hyponymsFile; // 替换为你的文件路径
         List<String[]> resultList = new ArrayList<>();
 
         // 使用 try-with-resources 自动关闭资源

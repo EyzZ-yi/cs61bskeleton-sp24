@@ -6,15 +6,18 @@ import java.io.IOException;
 import java.util.*;
 
 public class WordNet {
-    //List<int[]> TxtListOfWords=new ArrayList<>();
     HashSet<String> ResOfWords=new HashSet<>();
-    HashMap<String, HashSet<Integer>> TxtListMeanToWords=new HashMap<>();
-    HashMap<Integer,HashSet<String>> TxtListWordToMean=new HashMap<>();
-   public Set<Integer> ConvertOfWToM(String word){
-        return TxtListMeanToWords.get(word);
+    HashMap<Integer,HashSet<String>>  TxtListMeanToWords=new HashMap<>();
+    HashMap<String, HashSet<Integer>> TxtListWordToMean=new HashMap<>();
+    public WordNet(String synsetsFile) {
+        ReadTxtExample(synsetsFile);   // 构造时读一次
+
+    }
+   public HashSet<Integer> ConvertOfWToM(String word){
+        return TxtListWordToMean.get(word);
    }
-   public Set<String> ConvertOfMToW(Integer id){
-       return TxtListWordToMean.get(id);
+   public HashSet<String> ConvertOfMToW(Integer id){
+       return TxtListMeanToWords.get(id);
    }
    public Set<String> GetResult(Set<Integer> IdResult){
        for(Integer id :IdResult){
@@ -23,8 +26,8 @@ public class WordNet {
        return ResOfWords;
    }
 
-    public void ReadTxtExample(){
-        String filePath = "synsets.txt"; // 替换为你的文件路径
+    public void ReadTxtExample(String synsetsFile){
+        String filePath = synsetsFile; // 替换为你的文件路径
         List<String[]> resultList = new ArrayList<>();
 
         // 使用 try-with-resources 自动关闭资源
@@ -37,11 +40,16 @@ public class WordNet {
 
                 // 3. 处理分割后的数据
                 resultList.add(data);
-                TxtListWordToMean.computeIfAbsent(Integer.valueOf(data[1]),k->new HashSet<>()).add(data[0]);
-                TxtListMeanToWords.computeIfAbsent(data[0],k->new HashSet<>()).add(Integer.valueOf(data[1]));
+                String[] words=data[1].split("\\s+");
+                for(String word :words) {
+                    TxtListWordToMean.computeIfAbsent(word, k -> new HashSet<>()).add(Integer.valueOf(data[0]));
+                    TxtListMeanToWords.computeIfAbsent(Integer.valueOf(data[0]), k -> new HashSet<>()).add(word);
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+
 }
