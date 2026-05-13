@@ -4,14 +4,11 @@ import browser.NgordnetQuery;
 import browser.NgordnetQueryHandler;
 import edu.princeton.cs.algs4.In;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class HyponymsHandler extends NgordnetQueryHandler {
     WordNet WordNet1;
     Graph Graph1;
-    Set<String> res;
 
     public HyponymsHandler(String synsetFile, String hyponymFile){
         WordNet1=new WordNet(synsetFile);
@@ -20,6 +17,7 @@ public class HyponymsHandler extends NgordnetQueryHandler {
     HashSet<Integer> ids;
 
     public Set<String> helpOfhandle(String word) {
+        Graph1.resOfId.clear();
        ids=WordNet1.ConvertOfWToM(word);
        for(Integer id :ids){
             Graph1.Find(id);
@@ -33,12 +31,15 @@ public class HyponymsHandler extends NgordnetQueryHandler {
         int startYear=q.startYear();
         int endYear=q.endYear();
         int k=q.k();
-            res=helpOfhandle(words.getFirst());
+        Set<String> res=helpOfhandle(words.getFirst());
         if(words.size()>1) {
-            for (String word : words) {
-                res.retainAll(helpOfhandle(word));
+            for (int i=1;i<words.size();i++) {
+                res.retainAll(helpOfhandle(words.get(i)));
             }
         }
-        return res.toString();
+        List<String> list=new ArrayList<>();
+        list.addAll(res);
+        Collections.sort(list);
+        return list.toString();
     }
 }

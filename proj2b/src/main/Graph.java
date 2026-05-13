@@ -13,12 +13,13 @@ public class Graph {
     HashMap<Integer,Set<Integer>> graph=new HashMap();
     public Graph(String hyponymsFile){
         ReadTxtExample(hyponymsFile);
+        CreatGraph(); // 在构造函数中直接构建图
     }
     public HashMap<Integer, Set<Integer>>CreatGraph(){//初始化图
         for(int[] list: TxtList ) {
                 int length = list.length;
                 Set<Integer> set = new HashSet<>();
-                for (int i = 0; i < length; i++) {
+                for (int i = 1; i < length; i++) {
                     graph.computeIfAbsent(list[0], k -> new HashSet<>()).add(list[i]);
                 }
         }
@@ -31,7 +32,9 @@ public class Graph {
             return ;
         }
         for(Integer ids :graph.get(id)){
-            Find(ids);
+            if(!resOfId.contains(ids)){  // 防止死循环
+                Find(ids);
+            }
         }
     }
     private void ReadTxtExample(String hyponymsFile){
@@ -59,4 +62,3 @@ public class Graph {
     }
 
 }
-

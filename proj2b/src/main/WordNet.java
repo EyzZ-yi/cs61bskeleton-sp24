@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.*;
 
 public class WordNet {
-    HashSet<String> ResOfWords=new HashSet<>();
+    //HashSet<String> ResOfWords=new HashSet<>();
     HashMap<Integer,HashSet<String>>  TxtListMeanToWords=new HashMap<>();
     HashMap<String, HashSet<Integer>> TxtListWordToMean=new HashMap<>();
     public WordNet(String synsetsFile) {
@@ -20,10 +20,12 @@ public class WordNet {
        return TxtListMeanToWords.get(id);
    }
    public Set<String> GetResult(Set<Integer> IdResult){
+      // ResOfWords.clear();
+       Set<String> result = new HashSet<>();
        for(Integer id :IdResult){
-           ResOfWords.addAll(ConvertOfMToW(id));
+           result.addAll(ConvertOfMToW(id));
        }
-       return ResOfWords;
+       return result;
    }
 
     public void ReadTxtExample(String synsetsFile){
